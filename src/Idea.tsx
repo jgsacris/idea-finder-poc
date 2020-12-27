@@ -37,6 +37,7 @@ function Idea(props: IdeaProps): ReactElement {
         left: ${props.y}px;
         background-color: rgb(255,0,0,0.5);
         cursor:pointer;
+        z-index:10;
         `
     return (
         <Wrapper onMouseDown={add} onMouseUp={remove} />
