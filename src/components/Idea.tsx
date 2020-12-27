@@ -1,5 +1,6 @@
-import React, { ReactElement, MouseEvent } from 'react'
+import React, { ReactElement, MouseEvent, useRef } from 'react'
 import styled from 'styled-components';
+import { connectionService } from '../services/Connections';
 
 interface IdeaProps {
     x: number;
@@ -10,10 +11,17 @@ function Idea(props: IdeaProps): ReactElement {
     let offsetX: number;
     let offsetY: number;
 
+    const size = 50;
+
+
     const move = (e: globalThis.MouseEvent): any => {
         const el = e.target as HTMLDivElement;
         el.style.left = `${e.pageX - offsetX}px`;
         el.style.top = `${e.pageY - offsetY}px`;
+        connectionService.IdeaLocation = {
+            x: e.pageX - offsetX + (size / 2),
+            y: e.pageY - offsetY + (size / 2)
+        }
     }
 
     const add = (event: MouseEvent<HTMLDivElement>) => {
@@ -29,9 +37,9 @@ function Idea(props: IdeaProps): ReactElement {
     }
 
     const Wrapper = styled.div`
-        width: 50px;
-        height: 50px;
-        border-radius: 29px;
+        width: ${size}px;
+        height: ${size}px;
+        border-radius: ${size / 2}px;
         position: absolute;
         top: ${props.x}px;
         left: ${props.y}px;

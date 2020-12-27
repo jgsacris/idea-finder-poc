@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
-import Idea from './Idea';
-import Lines from './Lines';
+import Idea from './components/Idea';
+import Lines from './components/Lines';
 
 
 function App() {
