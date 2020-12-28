@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import Idea from './components/Idea';
+import IdeaContainer from './components/IdeaContainer';
 import Lines from './components/Lines';
 
 
@@ -8,7 +8,7 @@ function App() {
   return (
     <div className="App">
       <Lines />
-      <Idea x={100} y={100} />
+      <IdeaContainer />
     </div>
   );
 }

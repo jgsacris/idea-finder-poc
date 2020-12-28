@@ -1,11 +1,27 @@
-import React, { ReactElement, MouseEvent, useRef } from 'react'
-import styled from 'styled-components';
+import React, { ReactElement, MouseEvent } from 'react'
+import { createUseStyles } from 'react-jss'
 import { connectionService } from '../services/Connections';
 
-interface IdeaProps {
+export interface IdeaProps {
+    id: string;
     x: number;
     y: number;
 }
+
+const useStyles = createUseStyles({
+    iContainer: props => ({
+        width: props.size,
+        height: props.size,
+        borderRadius: props.size / 2,
+        position: 'absolute',
+        top: props.x,
+        left: props.y,
+        backgroundColor: 'rgb(255, 0, 0, 0.5)',
+        cursor: 'pointer',
+        zIndex: 10,
+
+    })
+})
 
 function Idea(props: IdeaProps): ReactElement {
     let offsetX: number;
@@ -13,6 +29,7 @@ function Idea(props: IdeaProps): ReactElement {
 
     const size = 50;
 
+    const classes = useStyles({ ...props, size });
 
     const move = (e: globalThis.MouseEvent): any => {
         const el = e.target as HTMLDivElement;
@@ -35,20 +52,12 @@ function Idea(props: IdeaProps): ReactElement {
         const el = e.target as HTMLDivElement;
         el.removeEventListener('mousemove', move);
     }
-
-    const Wrapper = styled.div`
-        width: ${size}px;
-        height: ${size}px;
-        border-radius: ${size / 2}px;
-        position: absolute;
-        top: ${props.x}px;
-        left: ${props.y}px;
-        background-color: rgb(255,0,0,0.5);
-        cursor:pointer;
-        z-index:10;
-        `
     return (
-        <Wrapper onMouseDown={add} onMouseUp={remove} />
+        <div className={classes.iContainer}
+            onMouseDown={add}
+            onMouseUp={remove}
+            onMouseLeave={remove}
+        />
     )
 }
 

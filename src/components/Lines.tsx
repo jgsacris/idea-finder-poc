@@ -1,11 +1,20 @@
 import React, { ReactElement, useRef, useState, useEffect } from 'react'
-import styled from 'styled-components';
+import { createUseStyles } from 'react-jss'
 import { connectionService, Point } from '../services/Connections';
+
+const useStyles = createUseStyles({
+    lContainer: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        zIndex: 0
+    }
+})
 
 function Lines(): ReactElement {
     const canvasRef = useRef(null);
     const connection = useRef(connectionService);
-
+    const classes = useStyles();
     const margin = 32;
     const [width, setWidth] = useState<number>(window.innerWidth - margin);
     const [height, setHeight] = useState<number>(window.innerHeight - margin);
@@ -45,18 +54,10 @@ function Lines(): ReactElement {
         }
     }
 
-
-    const Wrapper = styled.div`
-        position: absolute;
-        top: 0;
-        left: 0;
-        z-index: 0;
-    `;
-
     return (
-        <Wrapper>
+        <div className={classes.lContainer}>
             <canvas ref={canvasRef} width={width} height={height} />
-        </Wrapper>
+        </div>
     )
 }
 
